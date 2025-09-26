@@ -44,4 +44,8 @@ data class ReportAddressRequest(
 data class ReportRequest(
     @NotNull
     val report: String,
+    @NotNull
+    val imagesUrl: List<String>,
+    @NotNull
+    val reportCategory: String
 )

@@ -2,9 +2,15 @@ package voz_do_povo_api.controller.requests
 
 import kotlinx.serialization.Serializable
 import org.jetbrains.annotations.NotNull
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
 @Serializable
-data class PublicationRequest(
+@Document(collection = "report")
+data class PublicationData(
+
+    @Id
+    var id: String?,
 
     val userRequest: UserRequest,
 

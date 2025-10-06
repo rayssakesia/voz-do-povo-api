@@ -1,6 +1,5 @@
 package voz_do_povo_api.repository
 
-import org.bson.Document
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.http.server.reactive.ServerHttpResponse
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate
 import reactor.core.publisher.Mono
-import java.nio.file.Files
-import java.nio.file.Paths
 import java.time.Instant
 import java.util.Base64
 

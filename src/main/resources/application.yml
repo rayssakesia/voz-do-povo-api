@@ -4,12 +4,16 @@
 #      uri: mongodb://mongodb:27017/webflux_demo
 
 spring:
+  codec:
+    max-in-memory-size: 10MB
+
   data:
     mongodb:
       # Fora do Docker:
       # uri: mongodb://root:rootpass@localhost:27017/appdb?authSource=admin
       # Dentro do Docker (mesma rede do compose):
       uri: mongodb://root:rootpass@localhost:27017/appdb?authSource=admin
+
   main:
     web-application-type: reactive
 

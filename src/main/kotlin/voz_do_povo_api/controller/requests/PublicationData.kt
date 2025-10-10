@@ -59,8 +59,8 @@ data class ReportRequest(
 
 @Serializable
 data class Images(
-    val id: String?,                 // _id do GridFS (hex)
-    val url: String?,                // /images/{id}
+    val id: String?,
+    val url: String?,
     val contentType: String?,
     val filename: String?,
     val uploadedAt: Instant?

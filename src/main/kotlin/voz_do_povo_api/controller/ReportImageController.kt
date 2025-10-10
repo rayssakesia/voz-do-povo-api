@@ -40,6 +40,7 @@ class ReportImageController(
         @RequestPart("image") file: FilePart,
         request: ServerHttpRequest
     ): Mono<Map<String, Any>> {
+
         val baseUrl = "${request.uri.scheme}://${request.uri.host}:${request.uri.port}"
 
         val meta = Document("uploadedAt", Instant.now().toString())

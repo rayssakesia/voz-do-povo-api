@@ -15,7 +15,7 @@ enum class ReportCategory {
     CLEANING
 }
 
-fun getMessageByCategoryReport (category: ReportCategory) : String {
+fun sendMessageByCategoryReport (category: ReportCategory) : String {
     return when (category){
         ReportCategory.CLEANING-> "LIMPEZA"
         ReportCategory.ENVIRONMENT-> "MEIO AMBIENTE"

@@ -30,19 +30,23 @@ class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRep
                     userRequest = publication.userRequest,
                     reportAddressRequest = publication.reportAddressRequest,
                     report = ReportRequest(
-                        images= Images(
-                            url = image.url,
-                            id = image.id,
-                            filename = image.filename,
-                            contentType = image.contentType,
-                            uploadedAt = image.uploadedAt),
+                        images= publication.report.images
+                            .let { imagesList ->
+                                val updatedImages = imagesList.toMutableList()
+                                updatedImages.add(image)
+                                updatedImages
+                            },
                         report = publication.report.report,
                         reportCategory = publication.report.reportCategory
-
+                        )
                     )
-                )
 
                 vozDoPovoRepository.save(updatedImage)
             }
     }
 }
+
+
+//imagens com ids diferentes
+//toda vez q o user clicar faz um get
+//ou get all e itera a list

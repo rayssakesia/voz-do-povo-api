@@ -52,7 +52,7 @@ data class ReportRequest(
     @NotNull
     val report: String,
     @NotNull
-    val images: Images?,
+    val images: List<Images> = mutableListOf(),
     @NotNull
     val reportCategory: String
 )

@@ -27,4 +27,9 @@ class ReportController (val reportService: ReportService) {
     fun findReport(@PathVariable id: String): Mono<PublicationData> {
         return reportService.findReport(id)
     }
+
+    // TODO: Implement update endpoint for report
+
+    // TODO: Implement delete endpoint for report
+
 }

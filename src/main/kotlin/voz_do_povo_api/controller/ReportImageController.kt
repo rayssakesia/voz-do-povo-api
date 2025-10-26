@@ -35,7 +35,7 @@ class ReportImageController(
 
     @PostMapping("/reportImage/{id}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     @ResponseStatus(HttpStatus.CREATED)
-    fun uploadImageById(
+    fun uploadImageByReportId(
         @PathVariable id: String,
         @RequestPart("image") file: FilePart,
         request: ServerHttpRequest
@@ -53,7 +53,7 @@ class ReportImageController(
             meta
         ).flatMap { fileId ->
             val image = Images(
-                id = fileId.toString(),
+                id = fileId.toString(),     // TODO: Implement UUID generation for image ID
                 url = "$baseUrl/images/${fileId}",
                 contentType = file.headers().contentType?.toString(),
                 filename = file.filename(),
@@ -72,15 +72,16 @@ class ReportImageController(
         }
     }
 
-    // TODO: Return the list of images associated with the report
-    @GetMapping("/reportImage/{id}")
+    @GetMapping("/reportImage/{id}/{imagePosition}")
     @ResponseStatus(HttpStatus.OK)
-    fun findImageByReportId(@PathVariable id: String, response: ServerHttpResponse): Mono<Void> {
+    fun findImageByReportId(
+        @PathVariable id: String, @PathVariable imagePosition: Int, response: ServerHttpResponse
+    ): Mono<Void> {
         val ct = MediaType.APPLICATION_OCTET_STREAM
 
-        val imageId = getImageId(id).flatMap { publication ->
-            Mono.just(publication.report.images?.id ?: throw NoSuchElementException("Image ID not found"))
-        }.block() ?: throw NoSuchElementException("Image ID not found")
+        val imageId = getImageId(id)
+        .block()?.report?.images?.get(imagePosition)?.id
+            ?: return Mono.error(NoSuchElementException("Image not found at position $imagePosition"))
 
         return gridFs.findOne(Query(Criteria.where("_id").`is`(imageId)))
             .switchIfEmpty(Mono.error(NoSuchElementException("File not found")))
@@ -92,7 +93,7 @@ class ReportImageController(
                         dataBuffer.read(bytes)
                         DataBufferUtils.release(dataBuffer)
                         val base64 = Base64.getEncoder().encodeToString(bytes)
-                        val result = decodeToBase64(
+                        val result = decodeImage(
                             body = mapOf("base64" to base64), response
                         )
                         return@flatMap result
@@ -100,13 +101,16 @@ class ReportImageController(
             }
     }
 
+    // TODO: Implement delete image by ID base on report ID and image position
+
+    // TODO: Implement class to decode image from base64 string
     fun getImageId(id: String): Mono<PublicationData> {
         return vozDoPovoRepository.findById(id).flatMap { publication ->
             Mono.just(publication ?: throw NoSuchElementException("Image ID not found"))
         }
     }
 
-    fun decodeToBase64(body: Map<String, String>, response: ServerHttpResponse): Mono<Void> {
+    fun decodeImage(body: Map<String, String>, response: ServerHttpResponse): Mono<Void> {
         val base64 = body["base64"] ?: return Mono.error(IllegalArgumentException("Missing base64"))
         val bytes = Base64.getDecoder().decode(base64)
 

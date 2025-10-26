@@ -16,13 +16,13 @@ class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRep
         publicationData.id = UUID.randomUUID().toString()
         return vozDoPovoRepository.save(publicationData)
     }
+
     fun findReport (id: String) : Mono<PublicationData> {
 
         return vozDoPovoRepository.findById(id)
     }
 
     fun updateReportImages (id: String, image: Images) : Mono<PublicationData> {
-
         return vozDoPovoRepository.findById(id)
             .flatMap { publication ->
                 val updatedImage = PublicationData(
@@ -45,8 +45,3 @@ class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRep
             }
     }
 }
-
-
-//imagens com ids diferentes
-//toda vez q o user clicar faz um get
-//ou get all e itera a list

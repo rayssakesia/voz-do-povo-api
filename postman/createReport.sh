@@ -2,8 +2,7 @@ curl --location 'http://localhost:8080/voz-do-povo/publish' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "userRequest": {
-        "name": "Usuário Anônimo",
-        "email": "joao@gmail.com"
+        "email": "joaosilva@gmail.com"
     },
     "reportAddressRequest": {
         "number": "1020",
@@ -16,10 +15,6 @@ curl --location 'http://localhost:8080/voz-do-povo/publish' \
     },
     "report": {
         "report": "falta de iluminação na rua",
-        "imagesUrl": [
-            "https://share.google/images/DFEuJbIM6aPaPJV6w",
-            "https://share.google/images/DFEuJbIM6aPaPJV6w"
-        ],
         "reportCategory": "INFRAESTRUTURA"
     }
 }'

@@ -51,10 +51,16 @@ data class ReportAddressRequest(
 data class ReportRequest(
     @NotNull
     val report: String,
+
+    @NotNull
+    val reportDescription: String,
+
     @NotNull
     val images: List<Images> = mutableListOf(),
+
     @NotNull
     val reportCategory: String
+
 )
 
 @Serializable

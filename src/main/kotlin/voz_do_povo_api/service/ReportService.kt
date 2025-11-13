@@ -41,6 +41,7 @@ class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRep
                                 updatedImages
                             },
                         report = publication.report.report,
+                        reportDescription = publication.report.reportDescription,
                         reportCategory = publication.report.reportCategory
                     )
                 )

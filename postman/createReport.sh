@@ -15,6 +15,7 @@ curl --location 'http://localhost:8080/voz-do-povo/publish' \
     },
     "report": {
         "report": "falta de iluminação na rua",
+        "reportDescription": "Iluminação pública insuficiente",
         "reportCategory": "INFRAESTRUTURA"
     }
 }'

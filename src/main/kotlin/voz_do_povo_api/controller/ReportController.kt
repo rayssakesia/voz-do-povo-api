@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import voz_do_povo_api.controller.requests.PublicationData
 import voz_do_povo_api.service.ReportService
@@ -28,8 +29,10 @@ class ReportController (val reportService: ReportService) {
         return reportService.findReport(id)
     }
 
-    // TODO: Implement update endpoint for report
-
-    // TODO: Implement delete endpoint for report
+    @GetMapping("/{email}/reports")
+    @ResponseStatus(HttpStatus.OK)
+    fun findReportsByEmail(@PathVariable email: String): Flux<PublicationData> {
+        return reportService.findReportByEmail(email)
+    }
 
 }

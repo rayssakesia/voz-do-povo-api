@@ -2,6 +2,7 @@ package voz_do_povo_api.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import voz_do_povo_api.controller.requests.Images
 import voz_do_povo_api.controller.requests.PublicationData
@@ -18,8 +19,11 @@ class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRep
     }
 
     fun findReport (id: String) : Mono<PublicationData> {
-
         return vozDoPovoRepository.findById(id)
+    }
+
+    fun findReportByEmail (email: String) : Flux<PublicationData> {
+        return vozDoPovoRepository.findAllByEmail(email)
     }
 
     fun updateReportImages (id: String, image: Images) : Mono<PublicationData> {
@@ -38,8 +42,8 @@ class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRep
                             },
                         report = publication.report.report,
                         reportCategory = publication.report.reportCategory
-                        )
                     )
+                )
 
                 vozDoPovoRepository.save(updatedImage)
             }

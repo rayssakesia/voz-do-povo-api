@@ -1,17 +1,20 @@
-#spring:
-#  data:
-#    mongodb:
-#      uri: mongodb://mongodb:27017/webflux_demo
-
 spring:
+  mail:
+    host: smtp.sendgrid.net
+    port: 587
+    username: apikey
+    password: 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
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   codec:
-    max-in-memory-size: 10MB
+    max-in-memory-size: 20MB
 
   data:
     mongodb:
-      # Fora do Docker:
-      # uri: mongodb://root:rootpass@localhost:27017/appdb?authSource=admin
-      # Dentro do Docker (mesma rede do compose):
       uri: mongodb://root:rootpass@localhost:27017/appdb?authSource=admin
 
   main:

@@ -31,3 +31,4 @@ fun sendMessageByCategoryReport (category: ReportCategory) : String {
         ReportCategory.ANIMAL_HEALTH_AND_ZOONOSES -> "ANIMAIS E ZOONOSES"
     }
 }
+

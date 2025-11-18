@@ -1,7 +1,6 @@
 package voz_do_povo_api.service
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.mail.SimpleMailMessage
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -12,10 +11,7 @@ import voz_do_povo_api.repository.VozDoPovoRepository
 import java.util.UUID
 
 @Service
-class ReportService @Autowired constructor(
-    val vozDoPovoRepository: VozDoPovoRepository,
-    val javaMailSender: org.springframework.mail.javamail.JavaMailSender
-){
+class ReportService @Autowired constructor(val vozDoPovoRepository: VozDoPovoRepository){
 
     fun createReport (publicationData: PublicationData) : Mono<PublicationData> {
         publicationData.id = UUID.randomUUID().toString()
@@ -52,21 +48,5 @@ class ReportService @Autowired constructor(
 
                 vozDoPovoRepository.save(updatedImage)
             }
-            //.map { publication -> publication }
-            .flatMap { sendEmailReport(to ="eldvidal@gmail.com", body= "${it}", subject = "Assunto") }
     }
-
-    fun sendEmailReport(to: String, subject: String, body: String): Mono<PublicationData> {
-        val message = SimpleMailMessage().apply {
-            from = "vozdocidadao01@gmail.com"
-            setTo(to, "vozdocidadao01@gmail.com")
-            setSubject(subject)
-            text = body
-        }
-
-        javaMailSender.send(message)
-        return Mono.empty()
-    }
-
-
 }

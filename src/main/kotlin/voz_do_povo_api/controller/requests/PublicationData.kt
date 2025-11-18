@@ -22,19 +22,6 @@ data class PublicationData(
 )
 
 @Serializable
-data class Publication(
-
-    @Id
-    var id: String?,
-
-    val reportAddressRequest: ReportAddressRequest,
-
-    val report: ReportRequest
-
-)
-
-
-@Serializable
 data class UserRequest(
 
     val name: String? = "Usuário Anônimo",
